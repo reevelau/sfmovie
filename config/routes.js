@@ -25,7 +25,7 @@ module.exports.routes = {
   // NOTE all routes defined before the 'GET /*' will override
 
   // All GET requests are directed to the app controller which renders our app.
-  'GET /*': {
+  'GET /': {
     controller: 'AppController',
     action: 'index',
     skipAssets: true,
