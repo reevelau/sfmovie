@@ -63,3 +63,5 @@ typings/
 # sails-react-webpack
 assets.json
 public/
+
+.tmp/
