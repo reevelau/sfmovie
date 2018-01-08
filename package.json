@@ -41,7 +41,8 @@
     "webpack": "^1.13.0"
   },
   "scripts": {
-    "start": "nf start --wrap",
+    "start": "sails lift --prod",
+    "local": "nf start --wrap",
     "dev": "node webpackDevServer",
     "dist": "cross-env NODE_ENV=production webpack -p --config webpack.config.prod.js"
   },
