@@ -11,7 +11,7 @@ module.exports = {
 
   entry: [
     'babel-polyfill',
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:8081',
     'webpack/hot/dev-server',
     './assets/main.jsx',
   ],
@@ -20,7 +20,7 @@ module.exports = {
     path: path.join(__dirname, '/public/dist/'),
     filename: 'bundle.js',
     pathInfo: true,
-    publicPath: 'http://localhost:8080/dist/',
+    publicPath: 'http://localhost:8081/dist/',
     hot: true,
   },
 

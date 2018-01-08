@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./webpack.config.dev');
-const FRONTEND_PORT = 8080;
-const BACKEND_PORT = 3000;
+const FRONTEND_PORT = 8081;
+const BACKEND_PORT = 8080;
 const colors = require('colors');
 
 var server = new WebpackDevServer(webpack(config), {

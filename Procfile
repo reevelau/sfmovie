@@ -1,2 +1,2 @@
-backend: cross-env PORT=3000 sails lift
+backend: cross-env PORT=8080 sails lift
 frontend: node webpackDevServer
