@@ -4,8 +4,7 @@
   "version": "0.2.0",
   "description": "A Sails, React & Webpack boilerplate",
   "engines": {
-    "node": "5.8.0",
-    "npm": ">= 3.7.3"
+    "node": "6.10.2"
   },
   "keywords": [
     "sails",
@@ -44,8 +43,7 @@
   "scripts": {
     "start": "nf start --wrap",
     "dev": "node webpackDevServer",
-    "dist": "cross-env NODE_ENV=production webpack -p --config webpack.config.prod.js",
-    "postinstall": "npm run dist"
+    "dist": "cross-env NODE_ENV=production webpack -p --config webpack.config.prod.js"
   },
   "main": "app.js",
   "repository": {
