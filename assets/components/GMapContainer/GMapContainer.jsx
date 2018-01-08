@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import {GoogleApiWrapper, Map, InfoWindow, Marker, Polygon} from 'google-maps-react';
 
 const SanFrancisco = {lat: 37.773972, lng: -122.431297};
@@ -30,6 +29,16 @@ function googleGeocodeAddressTranslate( addr, cb){
         .then(response => response.json())
         .then(geocode => {
             
+            if(typeof geocode === 'undefined'
+                || geocode == null
+                || typeof geocode.results === 'undefined'
+                || geocode.results.constructor !== Array 
+                || geocode.results.length === 0       
+                ){
+                console.warn(`[${addr}] doesn't resolve to a geocode`);
+                return;
+            }
+            
             var gresult = geocode.results[0];
             var result = {
                 formatted_address: gresult.formatted_address,
@@ -56,26 +65,28 @@ export class GMapContainer extends React.Component {
     }
 
     componentWillReceiveProps = function(nextProps){
-        //console.log(`componentWillReceiveProps :`,nextProps);
-        if(nextProps.movies.length > 0){
-            var self = this;
-            console.log('movie info', nextProps.movies[0]);
-            this.setState({movieInfo: nextProps.movies[0]});
-            this.setState({markers: []});
+        var self = this;
 
-            nextProps.movies[0].locations.forEach(function(l){
-                //console.log(`location: ${l.name}`);
-                googleGeocodeAddressTranslate(l.name, geocode=>{
-                    geocode.title = nextProps.selectedMovie; 
-                    self.state.markers.push(geocode);
-                    self.setState({markers: self.state.markers});
-                });
-            });
+        this.setState({markers: []});
+
+        if(typeof nextProps.selectedMovie === 'undefined'
+            || nextProps.selectedMovie === null    
+        ){
+            this.setState({movieInfo: null});
+            return;
         }
+
+        this.setState({movieInfo: nextProps.selectedMovie});
+        nextProps.selectedMovie.locations.forEach(function(l){
+            googleGeocodeAddressTranslate(l.name, geocode=>{
+                geocode.title = nextProps.selectedMovie.title; 
+                self.state.markers.push(geocode);
+                self.setState({markers: self.state.markers});
+            });
+        });
     }
 
     onMarkerClick = function(props, marker, e){
-        console.log('marker clicked!: ', arguments);
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -84,14 +95,32 @@ export class GMapContainer extends React.Component {
     }
 
     render() {
+        let movieInfoBlock = null;
+
+        if(this.state.movieInfo !== null){
+            movieInfoBlock = (
+                <div class="movieInfo">
+                    <h3>{this.state.movieInfo.title}</h3>
+                    <p><span class="column-name">release year:</span> {this.state.movieInfo.release_year}</p>
+                    <p><span class="column-name">director:</span> {this.state.movieInfo.director}</p>
+                    <p><span class="column-name">actor:</span> {this.state.movieInfo.actor_1}</p>
+                    <p><span class="column-name">actor:</span> {this.state.movieInfo.actor_2}</p>
+                    <p><span class="column-name">actor:</span> {this.state.movieInfo.actor_3}</p>
+                    <p><span class="column-name">production:</span> {this.state.movieInfo.production_company}</p>
+                    <p><span class="column-name">distributor:</span> {this.state.movieInfo.distributor}</p>
+                    <p><span class="column-name">fun facts:</span> {this.state.movieInfo.fun_facts}</p>
+                </div>
+            );
+        }
+        else{
+            movieInfoBlock = <div />;
+        }
+        
         return (
             <div>
-                <h1>{this.props.selectedMovie}</h1>
-
                 <Map google={this.props.google} zoom={12}
                     style={style}
                     initialCenter={SanFrancisco}
-                    //onClick={this.onMapClicked}
                 >
                     {
                         this.state.markers.map((el,index) => 
@@ -100,30 +129,18 @@ export class GMapContainer extends React.Component {
                                     onClick={this.onMarkerClick.bind(this)}
                                     onMouseover={this.onMarkerMouseOver} 
                                     key={index}
-                                    title={el.title}
-                                    name={el.title} position={el.latlong}/>
+                                    title={el.formatted_address}
+                                    name={el.formatted_address} position={el.latlong}/>
                             }
                         )
                     }
-                    
                     
                     <InfoWindow
                             onOpen={this.onInfoWindowOpen}
                             onClose={this.onInfoWindowClose}
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}>
-                                <div>
-                                    <h1> Movie Info </h1>
-                                    <h2>Title : {this.props.selectedMovie}</h2>
-                                    <h2>Release year: {this.state.movieInfo.release_year}</h2>
-                                    <h2>Director: {this.state.movieInfo.director}</h2>
-                                    <h2>actor: {this.state.movieInfo.actor_1}</h2>
-                                    <h2>actor: {this.state.movieInfo.actor_2}</h2>
-                                    <h2>actor: {this.state.movieInfo.actor_3}</h2>
-                                    <h2>production: {this.state.movieInfo.production_company}</h2>
-                                    <h2>distributor : {this.state.movieInfo.distributor}</h2>
-                                    <h2>fun facts: {this.state.movieInfo.fun_facts}</h2>
-                                </div>
+                               {movieInfoBlock} 
                     </InfoWindow>
 
                 </Map>
@@ -133,13 +150,11 @@ export class GMapContainer extends React.Component {
 };
 
 GMapContainer.PropTypes = {
-    movies: PropTypes.array.isRequired,
-    selectedMovie: PropTypes.string.isRequired
+    selectedMovie: PropTypes.object
 };
 
 GMapContainer.defaultProps = {
-    movies: [],
-    selectedMovie: '' 
+    selectedMovie: null 
 };
 
 export default GoogleApiWrapper ({

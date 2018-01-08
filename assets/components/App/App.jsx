@@ -13,14 +13,14 @@ export default class App extends Component {
     super(props);
     this.state = {
       movies: [],
-      searchValue : ''
+      searchValue : '',
+      selectedMovie: null
     };
 
   }
 
   searchBoxValueChange = function(e){
     var text = e.target.value;
-    console.log(`search box changed: ${text}`);
     this.setState({ searchValue: text });
     var ctlr = this;
     var query = `?where={"title":{"contains":"${text}"}}`;
@@ -29,47 +29,62 @@ export default class App extends Component {
       return response.json();
     })
     .then(function(records){
-      console.log(`fetched record: ${records.length}`);
       ctlr.setState({movies: records});
     });
   }
 
   searchBoxSelected = function(value){
-    console.log(`search box selected: ${value}`);
     this.setState({ searchValue: value });
-    //this.setState({movies: this.state.movies});
-    //console.log('movies: ', JSON.stringify(this.state.movies));
+    var ctlr = this;
+    var query = '/'+ encodeURIComponent(value);
+    fetch(movieapi + query)
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(record){
+      ctlr.setState({selectedMovie: record});
+      ctlr.setState({movies: []});
+    });
   }
 
   render() {
 
     return (
       <div class="app">
-        <div class="container">
-          <ReactAutocomplete 
-            items={this.state.movies}
-            //shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
-            getItemValue={item => item.title}
-            renderItem={(item, highlighted) =>
-              <div
-                key={item.title}
-                style={{ backgroundColor: highlighted ? '#eee' : 'transparent'}}
-              >
-                {item.title}
-              </div>
-            }
-            value={this.state.searchValue}
-            onChange={ this.searchBoxValueChange.bind(this) }
-            onSelect={ this.searchBoxSelected.bind(this)}
-          />
-          <br/>
-
-          <GMapContainer 
-            movies={this.state.movies}
-            selectedMovie={this.state.searchValue}
-            />
+          <div class="header">
+            <h3>San Francisco Movies Locations</h3>
+            <span>Enter a movie name and we will show you the relating locations in the area.</span>
+          </div>
           
-        </div>
+
+          <div class="auto-complete-container">
+          
+            <ReactAutocomplete 
+              items={this.state.movies}
+              //shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
+              getItemValue={item => item.title}
+              renderItem={(item, highlighted) =>
+                <div
+                  class="drop-down-item"
+                  key={item.title}
+                  style={{ backgroundColor: highlighted ? '#eee' : 'transparent'}}
+                >
+                  {item.title}
+                </div>
+              }
+              value={this.state.searchValue}
+              onChange={ this.searchBoxValueChange.bind(this) }
+              onSelect={ this.searchBoxSelected.bind(this)}
+            />
+
+          </div>
+          <br/>
+          
+          <div class="map-container">
+            <GMapContainer 
+              selectedMovie={this.state.selectedMovie}
+              />
+          </div>
       </div>
     );
   }

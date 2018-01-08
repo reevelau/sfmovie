@@ -29,7 +29,6 @@ function createRecordHelper(cb){
   };
 
   Movie.findOrCreate( {title: r.title}, dbrecord).exec((error, dbMovieRecord)=>{
-    // insert location?
     if(error){
       sails.log.error(`error when findOrCreate ${r.title}, ${error}`);
       callback();
