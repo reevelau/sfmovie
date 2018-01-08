@@ -158,5 +158,5 @@ GMapContainer.defaultProps = {
 };
 
 export default GoogleApiWrapper ({
-    apiKey: 'AIzaSyAAhyuYrw1s7izDenuPj59N7J0WIFoAJ4g'
+    apiKey: 'AIzaSyAR1RcAbnZQjelUiSYM3QwSFewKRot2ojU'
 })(GMapContainer);
