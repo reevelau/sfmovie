@@ -28,10 +28,11 @@ module.exports.connections = {
   * Installed by default.                                                    *
   *                                                                          *
   ***************************************************************************/
+  /*
   localDiskDb: {
     adapter: 'sails-disk'
   },
-
+  */
   /***************************************************************************
   *                                                                          *
   * MySQL is the world's most popular relational database.                   *
@@ -40,15 +41,16 @@ module.exports.connections = {
   * Run: npm install sails-mysql                                             *
   *                                                                          *
   ***************************************************************************/
-  /*
-  someMysqlServer: {
+  
+  googleCloudSQL: {
     adapter: 'sails-mysql',
-    host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_MYSQL_USER',
-    password: 'YOUR_MYSQL_PASSWORD',
-    database: 'YOUR_MYSQL_DB'
+    //host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
+    socketPath: '/cloudsql/sf-movies-191212:asia-northeast1:sfmoviesdb',
+    user: 'sfmovies',
+    password: 'sfmovies',
+    database: 'sfmovies'
   },
-  */
+  
 
   /***************************************************************************
   *                                                                          *
