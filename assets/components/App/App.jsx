@@ -16,7 +16,6 @@ export default class App extends Component {
       searchValue : '',
       selectedMovie: null
     };
-
   }
 
   searchBoxValueChange = function(e){
@@ -53,15 +52,12 @@ export default class App extends Component {
       <div class="app">
           <div class="header">
             <h3>San Francisco Movies Locations</h3>
-            <span>Enter a movie name and we will show you the relating locations in the area.</span>
+            <span class="description">Enter a movie name and we will show you the relating locations in the area.</span>
           </div>
-          
 
           <div class="auto-complete-container">
-          
             <ReactAutocomplete 
               items={this.state.movies}
-              //shouldItemRender={(item, value) => item.label.toLowerCase().indexOf(value.toLowerCase()) > -1}
               getItemValue={item => item.title}
               renderItem={(item, highlighted) =>
                 <div
@@ -76,7 +72,6 @@ export default class App extends Component {
               onChange={ this.searchBoxValueChange.bind(this) }
               onSelect={ this.searchBoxSelected.bind(this)}
             />
-
           </div>
           <br/>
           

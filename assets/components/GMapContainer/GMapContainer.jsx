@@ -8,6 +8,8 @@ const style = {
     height: '100%'
 };
 const googleGeocodeApi = 'https://maps.googleapis.com/maps/api/geocode/json?';
+const gmapapikey = 'AIzaSyAR1RcAbnZQjelUiSYM3QwSFewKRot2ojU';
+
 
 function encodeQueryData(data) {
     let ret = [];
@@ -19,7 +21,7 @@ function encodeQueryData(data) {
 function googleGeocodeAddressTranslate( addr, cb){
     var query = { 
         'address': addr + ', San Francisco, CA', 
-        'key': 'AIzaSyAAhyuYrw1s7izDenuPj59N7J0WIFoAJ4g'
+        'key': gmapapikey
     };
 
     var queryString = encodeQueryData(query);
@@ -50,7 +52,6 @@ function googleGeocodeAddressTranslate( addr, cb){
             cb(result);
         })
 }
-
 
 export class GMapContainer extends React.Component {
     constructor(props){
@@ -158,5 +159,5 @@ GMapContainer.defaultProps = {
 };
 
 export default GoogleApiWrapper ({
-    apiKey: 'AIzaSyAR1RcAbnZQjelUiSYM3QwSFewKRot2ojU'
+    apiKey: gmapapikey
 })(GMapContainer);

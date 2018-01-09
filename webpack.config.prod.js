@@ -59,6 +59,7 @@ module.exports = {
       compress: {
         warnings: false,
         screw_ie8: true,
+        drop_console: true
       },
     }),
     new SaveAssetsJson({
