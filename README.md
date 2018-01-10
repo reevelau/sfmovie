@@ -70,6 +70,10 @@ A Google Maps API React wrapper, with this, it is really ease to use Google Maps
 # Link to App
 https://sf-movies-191519.appspot.com/
 
+# My Changes Over Boilerplate
+
+**[Differences](https://github.com/reevelau/sfmovies/compare/4fc357adbb451b3ed8910ac2c5a1137f41bf3f15...master)**
+
 # Development
 
 ## Prerequisites
