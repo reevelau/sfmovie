@@ -64,7 +64,7 @@ export class GMapContainer extends React.Component {
         };
     }
 
-    componentWillReceiveProps = function(nextProps){
+    componentWillReceiveProps(nextProps){
         var self = this;
 
         this.setState({markers: []});
@@ -86,7 +86,7 @@ export class GMapContainer extends React.Component {
         });
     }
 
-    onMarkerClick = function(props, marker, e){
+    onMarkerClick(props, marker, e){
         this.setState({
             selectedPlace: props,
             activeMarker: marker,

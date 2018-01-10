@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Normal 1`] = `
+<div
+  className="header"
+>
+  <h3>
+    San Francisco Movies Locations
+  </h3>
+  <span
+    className="description"
+  >
+    Enter a movie name and we will show you the relating locations in the area.
+  </span>
+</div>
+`;

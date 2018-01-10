@@ -7,7 +7,10 @@ export default class Header extends Component {
 
   render() {
     return (
-      <div>Sails + React + Webpack</div>
+      <div class="header">
+        <h3>San Francisco Movies Locations</h3>
+        <span class="description">Enter a movie name and we will show you the relating locations in the area.</span>
+      </div>
     );
   }
 }

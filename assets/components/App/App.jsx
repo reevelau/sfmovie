@@ -35,12 +35,12 @@ export default class App extends Component {
 
   }
 
-  searchBoxValueChange = function(e){
+  searchBoxValueChange(e){
     var text = e.target.value;
     this.setState({ searchValue: text });
   }
 
-  searchBoxSelected = function(value){
+  searchBoxSelected(value){
     this.setState({ searchValue: value });
     var ctlr = this;
     var query = '/'+ encodeURIComponent(value);
@@ -53,7 +53,7 @@ export default class App extends Component {
     });
   }
 
-  shouldAutoCompleteItemRender = function(item, value){
+  shouldAutoCompleteItemRender(item, value){
     if(!value)
       return false;
     
@@ -73,10 +73,8 @@ export default class App extends Component {
     return (
       <div class="app">
           {this.state.initializing? <Loader loadingMessage="We need few seconds to be well prepared." /> : null } 
-          <div class="header">
-            <h3>San Francisco Movies Locations</h3>
-            <span class="description">Enter a movie name and we will show you the relating locations in the area.</span>
-          </div>
+
+          <Header /> 
 
           <div class="auto-complete-container">
             <ReactAutocomplete 
