@@ -45,7 +45,7 @@
     "local": "nf start --wrap",
     "dev": "node webpackDevServer",
     "dist": "cross-env NODE_ENV=production webpack -p --config webpack.config.prod.js",
-    "test" : "jest --config=./test/front/config.jest.json "
+    "test" : "jest --config=./test/front/config.jest.json"
   },
   "main": "app.js",
   "repository": {
