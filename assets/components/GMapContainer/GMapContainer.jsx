@@ -10,7 +10,6 @@ const style = {
 const googleGeocodeApi = 'https://maps.googleapis.com/maps/api/geocode/json?';
 const gmapapikey = 'AIzaSyAR1RcAbnZQjelUiSYM3QwSFewKRot2ojU';
 
-
 function encodeQueryData(data) {
     let ret = [];
     for (let d in data)

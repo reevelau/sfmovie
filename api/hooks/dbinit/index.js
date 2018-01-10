@@ -3,7 +3,7 @@
  */
 const request = require('request');
 const async = require('async');
-const dburl = 'https://data.sfgov.org/resource/wwmu-gmzc.json?$limit=2000&&$$app_token=GdesEtaKTbsHuZUVMTzqGpXlT';
+const dburl = 'https://data.sfgov.org/resource/wwmu-gmzc.json?$limit=2000&$$app_token=GdesEtaKTbsHuZUVMTzqGpXlT';
 
 function createRecordHelper(cb){
   var r = this;
